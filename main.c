@@ -5,10 +5,10 @@
 #include <math.h>
 
 //for assembly x86-64
-extern void vec_x86(size_t n,float *a_x86, float* b, float* c, float* d);
+extern void vec_x86(size_t n, float* a_x86, float* b, float* c, float* d);
 
 //for SIMD XMM
-extern void vec_SIMDX(size_t n, float *a_SIMDX, float* b, float* c, float* d);
+extern void vec_SIMDX(size_t n, float* a_SIMDX, float* b, float* c, float* d);
 
 //for SIMD YMM
 extern void vec_SIMDY(size_t n, float* a_SIMDY, float* b, float* c, float* d);
@@ -35,7 +35,7 @@ int main() {
 	PCFreq = (double)(li.QuadPart);
 
 	//declare array (use malloc to declare very large data)
-	float *a, *b, *c, *d;
+	float* a, * b, * c, * d;
 	a = (float*)malloc(ARRAY_BYTES);
 	b = (float*)malloc(ARRAY_BYTES);
 	c = (float*)malloc(ARRAY_BYTES);
@@ -44,33 +44,37 @@ int main() {
 	//initialize array
 
 	//option1
-	/*for (i = 0; i < ARRAY_SIZE; i++) {
+	for (i = 0; i < ARRAY_SIZE; i++) {
 		b[i] = 1.0f;         // all ones
 		c[i] = i % ARRAY_SIZE;
 		d[i] = 1.0f;             // all ones
-	}*/
+	}
 
 	//option2
-	srand(time(NULL)); // seed once
+	/*srand(time(NULL)); // seed once
 
 	for (i = 0; i < ARRAY_SIZE; i++) {
 		b[i] = (float)rand() / RAND_MAX;
 		c[i] = (float)rand() / RAND_MAX;
 		d[i] = (float)rand() / RAND_MAX;
-	}
+	}*/
 
 
 	// --------- start of the program in C ---------
-	QueryPerformanceCounter(&li); //start timer	
-	start = li.QuadPart;
-	vec_C(ARRAY_SIZE, a, b, c,d);
-	QueryPerformanceCounter(&li); //end timer
-	end = li.QuadPart;
-	elapse = ((double)(end - start)) * 1000.0 / PCFreq;	// in milliseconds
-	printf("Time in C = %f ms\n  \n", elapse);
-	// ---------end of the program in C---------
+	double total_time_C = 0.0;
+	for (int t = 0; t < 30; t++) {
+		QueryPerformanceCounter(&li); //start timer	
+		start = li.QuadPart;
+		vec_C(ARRAY_SIZE, a, b, c, d);
+		QueryPerformanceCounter(&li); //end timer
+		end = li.QuadPart;
+		elapse = ((double)(end - start)) * 1000.0 / PCFreq;	// in milliseconds
+		total_time_C += elapse;
+			
+	}
+	printf("\nAverage Time in C (30 runs) = %f ms\n\n", total_time_C / 30.0);
 
-	  // print first 5 elements
+	 // print first 5 elements
 	printf("First 5 elements of a:\n");
 	for (i = 0; i < 5; i++) {
 		printf("a[%d] = %0.1f\n", i, a[i]);
@@ -82,7 +86,7 @@ int main() {
 		printf("a[%d] = %0.1f\n", i, a[i]);
 	}
 
-
+	// ---------end of the program in C---------
 
 
 	//--------- start of the program in Assembly(x86-64) ---------
@@ -95,16 +99,21 @@ int main() {
 	for (i = 0; i < ARRAY_SIZE; i++) {
 		a_x86[i] = 0.0f;
 	}
-	QueryPerformanceCounter(&li); //start timer
-	// in reality, we dont do this just 1 time
-	// loop 30 times then get the average
-	start = li.QuadPart;
-		vec_x86(ARRAY_SIZE, a_x86,b,c,d); //call the assembly function
 
-	QueryPerformanceCounter(&li); //end timer
-	end = li.QuadPart;
-	elapse = ((double)(end - start)) * 1000.0 / PCFreq; // in 
-	printf("\n\nTime in x86-64 assembly = %f ms\n", elapse);
+
+	
+	double total_time_x86 = 0.0;
+	for (int t = 0; t < 30; t++) {
+		QueryPerformanceCounter(&li); //start timer	
+		start = li.QuadPart;
+		vec_x86(ARRAY_SIZE, a_x86, b, c, d);
+		QueryPerformanceCounter(&li); //end timer
+		end = li.QuadPart;
+		elapse = ((double)(end - start)) * 1000.0 / PCFreq;	// in milliseconds
+		total_time_x86 += elapse;
+
+	}
+	printf("\nAverage Time in x86 (30 runs) = %f ms\n\n", total_time_x86 / 30.0);
 
 	// check if the array result is correct(error checking)
 	// note that this method of using 1 variable lang is the lazy method; do not do this in the MP and in real life
@@ -139,7 +148,7 @@ int main() {
 
 
 	//--------- start of the program in SIMD XMM ---------
-	
+
 
 	// array where SIMD XMM will place the answer
 	float* a_SIMDX;
@@ -148,17 +157,20 @@ int main() {
 	for (i = 0; i < ARRAY_SIZE; i++) {
 		a_SIMDX[i] = 0.0f;
 	}
-	QueryPerformanceCounter(&li); //start timer
-	// in reality, we dont do this just 1 time
-	// loop 30 times then get the average
-	//TODO
-	start = li.QuadPart;
-		vec_SIMDX(ARRAY_SIZE, a_SIMDX,b,c,d); //call the SIMD XMM function
 
-	QueryPerformanceCounter(&li); //end timer
-	end = li.QuadPart;
-	elapse = ((double)(end - start)) * 1000.0 / PCFreq; // in 
-	printf("\n\nTime in SIMD XMM = %f ms\n", elapse);
+	double total_time_SIMDX = 0.0;
+	for (int t = 0; t < 30; t++) {
+		QueryPerformanceCounter(&li); //start timer	
+		start = li.QuadPart;
+		vec_SIMDX(ARRAY_SIZE, a_SIMDX, b, c, d);
+		QueryPerformanceCounter(&li); //end timer
+		end = li.QuadPart;
+		elapse = ((double)(end - start)) * 1000.0 / PCFreq;	// in milliseconds
+		total_time_SIMDX += elapse;
+
+	}
+	printf("\nAverage Time in SIMD XMM (30 runs) = %f ms\n\n", total_time_SIMDX / 30.0);
+
 
 	// check if the array result is correct(error checking)
 	// note that this method of using 1 variable lang is the lazy method; do not do this in the MP and in real life
@@ -203,16 +215,20 @@ int main() {
 	for (i = 0; i < ARRAY_SIZE; i++) {
 		a_SIMDY[i] = 0.0f;
 	}
-	QueryPerformanceCounter(&li); //start timer
-	// in reality, we dont do this just 1 time
-	// loop 30 times then get the average
-	start = li.QuadPart;
-	vec_SIMDY(ARRAY_SIZE, a_SIMDY, b, c, d); //call the SIMD XMM function
 
-	QueryPerformanceCounter(&li); //end timer
-	end = li.QuadPart;
-	elapse = ((double)(end - start)) * 1000.0 / PCFreq; // in 
-	printf("\n\nTime in SIMD YMM = %f ms\n", elapse);
+	double total_time_SIMDY = 0.0;
+	for (int t = 0; t < 30; t++) {
+		QueryPerformanceCounter(&li); //start timer	
+		start = li.QuadPart;
+		vec_SIMDY(ARRAY_SIZE, a_SIMDY, b, c, d);
+		QueryPerformanceCounter(&li); //end timer
+		end = li.QuadPart;
+		elapse = ((double)(end - start)) * 1000.0 / PCFreq;	// in milliseconds
+		total_time_SIMDY += elapse;
+
+	}
+	printf("\nAverage Time in SIMD YMM (30 runs) = %f ms\n\n", total_time_SIMDY / 30.0);
+
 
 	// check if the array result is correct(error checking)
 	// note that this method of using 1 variable lang is the lazy method; do not do this in the MP and in real life
