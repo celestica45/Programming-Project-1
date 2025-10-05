@@ -1,4 +1,4 @@
-;Assembly
+;Assembly x86-64
 
 section .text
 bits 64

@@ -6,8 +6,13 @@ default rel
 global vec_SIMDX
 
 vec_SIMDX:
-    shr rcx, 2
     mov r10, [rsp+40]
+    mov rax, rcx
+    shr rcx, 2
+    and rax, 3
+    
+    cmp rcx, 0
+    je done_L1
 
 L1:
     vmovdqu xmm1, [r8]
@@ -24,4 +29,27 @@ L1:
     add rdx, 16
     loop L1             
 
+done_L1:
+    ; remainder loop
+    cmp rax, 0
+    je tapos
+
+    mov rcx, rax
+
+remainder:
+    vmovss xmm1, [r8]
+    vmovss xmm2, [r9]
+    vmovss xmm3, [r10]
+
+    vmulss xmm4, xmm2, xmm3 
+    vaddss xmm0, xmm4, xmm1 
+    vmovss [rdx], xmm0  
+
+    add r8, 4
+    add r9, 4
+    add r10, 4
+    add rdx, 4
+    loop remainder
+
+tapos:
     ret

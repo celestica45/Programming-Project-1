@@ -22,7 +22,7 @@ void vec_C(size_t n, float* a, float* b, float* c, float* d) {
 }
 
 int main() {
-	const size_t ARRAY_SIZE = 9; // 2^20 = 1048576
+	const size_t ARRAY_SIZE = 45; // 2^20 = 1048576
 	const size_t ARRAY_BYTES = ARRAY_SIZE * sizeof(float);
 	int i;
 	printf("Number of elements = %zd\n\n", ARRAY_SIZE);
@@ -44,20 +44,20 @@ int main() {
 	//initialize array
 
 	//option1
-	for (i = 0; i < ARRAY_SIZE; i++) {
+	/*for (i = 0; i < ARRAY_SIZE; i++) {
 		b[i] = 1.0f;         // all ones
 		c[i] = i % ARRAY_SIZE;
 		d[i] = 1.0f;             // all ones
-	}
+	}*/
 
 	//option2
-	/*srand(time(NULL)); // seed once
+	srand(time(NULL)); // seed once
 
 	for (i = 0; i < ARRAY_SIZE; i++) {
 		b[i] = (float)rand() / RAND_MAX;
 		c[i] = (float)rand() / RAND_MAX;
 		d[i] = (float)rand() / RAND_MAX;
-	}*/
+	}
 
 
 	// --------- start of the program in C ---------
