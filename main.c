@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <time.h>
-#include <math.h>
 
 //for assembly x86-64
 extern void vec_x86(size_t n, float* a_x86, float* b, float* c, float* d);
@@ -13,21 +12,21 @@ extern void vec_SIMDX(size_t n, float* a_SIMDX, float* b, float* c, float* d);
 //for SIMD YMM
 extern void vec_SIMDY(size_t n, float* a_SIMDY, float* b, float* c, float* d);
 
-
+// compute for the answer key
 void vec_C(size_t n, float* a, float* b, float* c, float* d) {
 	int i;
 	for (i = 0; i < n; i++) {
-		a[i] = b[i] + c[i] * d[i]; // this is our answer key
+		a[i] = b[i] + c[i] * d[i];
 	}
 }
 
 int main() {
-	const size_t ARRAY_SIZE = 45; // 2^20 = 1048576
+	const size_t ARRAY_SIZE = 1 << 20 ; // 2^20 = 1048576
 	const size_t ARRAY_BYTES = ARRAY_SIZE * sizeof(float);
 	int i;
-	printf("Number of elements = %zd\n\n", ARRAY_SIZE);
-
-	// timer variable
+	printf("\nNumber of elements = %zd\n\n", ARRAY_SIZE);
+	printf("---------------------------------------------------\n");
+	// timer variables
 	LARGE_INTEGER li;				// use for timer
 	long long int start, end;		// use for timer
 	double PCFreq, elapse, elapse1; // use for timer
@@ -42,23 +41,11 @@ int main() {
 	d = (float*)malloc(ARRAY_BYTES);
 
 	//initialize array
-
-	//option1
-	/*for (i = 0; i < ARRAY_SIZE; i++) {
-		b[i] = 1.0f;         // all ones
-		c[i] = i % ARRAY_SIZE;
-		d[i] = 1.0f;             // all ones
-	}*/
-
-	//option2
-	srand(time(NULL)); // seed once
-
 	for (i = 0; i < ARRAY_SIZE; i++) {
-		b[i] = (float)rand() / RAND_MAX;
-		c[i] = (float)rand() / RAND_MAX;
-		d[i] = (float)rand() / RAND_MAX;
+		b[i] = 1.0f;         // all ones
+		c[i] = i % ARRAY_SIZE; //array a will contain values from 1 up to ARRAY_SIZE.
+		d[i] = 1.0f;             // all ones
 	}
-
 
 	// --------- start of the program in C ---------
 	double total_time_C = 0.0;
@@ -85,24 +72,22 @@ int main() {
 	for (i = ARRAY_SIZE - 5; i < ARRAY_SIZE; i++) {
 		printf("a[%d] = %0.1f\n", i, a[i]);
 	}
-
 	// ---------end of the program in C---------
 
 
 	//--------- start of the program in Assembly(x86-64) ---------
-	// kumusta si Assembly in relation to C
 
 	// array where Assembly will place the answer
 	float* a_x86;
-	a_x86 = (float*)malloc(ARRAY_BYTES); // assembly output
+	a_x86 = (float*)malloc(ARRAY_BYTES);
+
 	//zero-out the output
 	for (i = 0; i < ARRAY_SIZE; i++) {
 		a_x86[i] = 0.0f;
 	}
 
+	double total_time_x86 = 0.0; 
 
-	
-	double total_time_x86 = 0.0;
 	for (int t = 0; t < 30; t++) {
 		QueryPerformanceCounter(&li); //start timer	
 		start = li.QuadPart;
@@ -113,16 +98,14 @@ int main() {
 		total_time_x86 += elapse;
 
 	}
+	printf("\n---------------------------------------------------\n");
 	printf("\nAverage Time in x86 (30 runs) = %f ms\n\n", total_time_x86 / 30.0);
 
-	// check if the array result is correct(error checking)
-	// note that this method of using 1 variable lang is the lazy method; do not do this in the MP and in real life
-	// if there was no variable ans, you would have to declare another array and call it float j; im going to place answer in  j then compare j[i] to the answer key z[i]
-	//float ANS = 3.0f;
+	// error checking
 	int fail = 0;
 	for (i = 0; i < ARRAY_SIZE; i++) {
 		if (a[i] != a_x86[i]) {
-			fail += 1; // fail
+			fail += 1;
 		}
 	}
 	if (fail > 0) {
@@ -149,11 +132,11 @@ int main() {
 
 	//--------- start of the program in SIMD XMM ---------
 
-
 	// array where SIMD XMM will place the answer
 	float* a_SIMDX;
-	a_SIMDX = (float*)malloc(ARRAY_BYTES); // assembly output
-	//zero-out the output
+	a_SIMDX = (float*)malloc(ARRAY_BYTES); 
+
+	//zero-out the array where SIMDX will put the output
 	for (i = 0; i < ARRAY_SIZE; i++) {
 		a_SIMDX[i] = 0.0f;
 	}
@@ -169,13 +152,11 @@ int main() {
 		total_time_SIMDX += elapse;
 
 	}
+	printf("\n---------------------------------------------------\n");
 	printf("\nAverage Time in SIMD XMM (30 runs) = %f ms\n\n", total_time_SIMDX / 30.0);
 
 
 	// check if the array result is correct(error checking)
-	// note that this method of using 1 variable lang is the lazy method; do not do this in the MP and in real life
-	// if there was no variable ans, you would have to declare another array and call it float j; im going to place answer in  j then compare j[i] to the answer key z[i]
-	//float ANS = 3.0f;
 	fail = 0;
 	for (i = 0; i < ARRAY_SIZE; i++) {
 		if (a[i] != a_SIMDX[i]) {
@@ -211,7 +192,8 @@ int main() {
 	// array where SIMD YMM will place the answer
 	float* a_SIMDY;
 	a_SIMDY = (float*)malloc(ARRAY_BYTES); // SIMD YMM output
-	//zero-out the output
+
+	//zero-out the array where SIMDY will put the output
 	for (i = 0; i < ARRAY_SIZE; i++) {
 		a_SIMDY[i] = 0.0f;
 	}
@@ -227,13 +209,10 @@ int main() {
 		total_time_SIMDY += elapse;
 
 	}
+	printf("\n---------------------------------------------------\n");
 	printf("\nAverage Time in SIMD YMM (30 runs) = %f ms\n\n", total_time_SIMDY / 30.0);
 
-
 	// check if the array result is correct(error checking)
-	// note that this method of using 1 variable lang is the lazy method; do not do this in the MP and in real life
-	// if there was no variable ans, you would have to declare another array and call it float j; im going to place answer in  j then compare j[i] to the answer key z[i]
-	//float ANS = 3.0f;
 	fail = 0;
 	for (i = 0; i < ARRAY_SIZE; i++) {
 		if (a[i] != a_SIMDY[i]) {
@@ -260,12 +239,15 @@ int main() {
 	}
 	//--------- end of the program in SIMD YMM ---------
 
-
+	printf("\n---------------------------------------------------");
 
 	//free the memory
 	free(a);
 	free(b);
 	free(c);
 	free(d);
+	free(a_x86);
+	free(a_SIMDX);
+	free(a_SIMDY);
 	return 0;
 }

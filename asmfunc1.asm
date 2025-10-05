@@ -6,6 +6,7 @@ default rel
 global vec_x86
 
 vec_x86:
+    ;to access d from shadow space
     mov r10, [rsp+40]
 
 L1:

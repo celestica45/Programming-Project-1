@@ -6,7 +6,9 @@ default rel
 global vec_SIMDX
 
 vec_SIMDX:
+    ;to access d from shadow space
     mov r10, [rsp+40]
+
     mov rax, rcx
     shr rcx, 2
     and rax, 3

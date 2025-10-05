@@ -6,8 +6,10 @@ default rel
 global vec_SIMDY
 
 vec_SIMDY:
+    ;to access d from shadow space
     mov r10, [rsp+40] 
-    mov rax,rcx           
+
+    mov rax, rcx           
     shr rcx, 3             
     and rax, 7
 
