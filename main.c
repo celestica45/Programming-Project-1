@@ -43,7 +43,7 @@ int main() {
 	//initialize array
 	for (i = 0; i < ARRAY_SIZE; i++) {
 		b[i] = 1.0f;         // all ones
-		c[i] = i % ARRAY_SIZE; //array a will contain values from 1 up to ARRAY_SIZE.
+		c[i] = i % ARRAY_SIZE; //array c: 0 up to ARRAY_SIZE-1; array a: 1 up to ARRAY_SIZE
 		d[i] = 1.0f;             // all ones
 	}
 
@@ -250,4 +250,5 @@ int main() {
 	free(a_SIMDX);
 	free(a_SIMDY);
 	return 0;
+
 }
