@@ -21,7 +21,7 @@ void vec_C(size_t n, float* a, float* b, float* c, float* d) {
 }
 
 int main() {
-	const size_t ARRAY_SIZE = 1 << 20 ; // 2^20 = 1048576
+	const size_t ARRAY_SIZE = 1 << 20; // 2^20 = 1048576 ; 2^26 = 67108864; 2^28 = 268435456; 2^29= 536870912; 2^30=1073741824
 	const size_t ARRAY_BYTES = ARRAY_SIZE * sizeof(float);
 	int i;
 	printf("\nNumber of elements = %zd\n\n", ARRAY_SIZE);
@@ -73,7 +73,7 @@ int main() {
 		printf("a[%d] = %0.1f\n", i, a[i]);
 	}
 	// ---------end of the program in C---------
-
+	
 
 	//--------- start of the program in Assembly(x86-64) ---------
 
@@ -88,7 +88,7 @@ int main() {
 
 	double total_time_x86 = 0.0; 
 
-	for (int t = 0; t < 30; t++) {
+	for (int m = 0; m < 30; m++) {
 		QueryPerformanceCounter(&li); //start timer	
 		start = li.QuadPart;
 		vec_x86(ARRAY_SIZE, a_x86, b, c, d);
@@ -142,7 +142,7 @@ int main() {
 	}
 
 	double total_time_SIMDX = 0.0;
-	for (int t = 0; t < 30; t++) {
+	for (int g = 0; g < 30; g++) {
 		QueryPerformanceCounter(&li); //start timer	
 		start = li.QuadPart;
 		vec_SIMDX(ARRAY_SIZE, a_SIMDX, b, c, d);
@@ -199,7 +199,7 @@ int main() {
 	}
 
 	double total_time_SIMDY = 0.0;
-	for (int t = 0; t < 30; t++) {
+	for (int f = 0; f < 30; f++) {
 		QueryPerformanceCounter(&li); //start timer	
 		start = li.QuadPart;
 		vec_SIMDY(ARRAY_SIZE, a_SIMDY, b, c, d);
