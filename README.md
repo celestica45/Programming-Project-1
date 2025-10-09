@@ -10,7 +10,7 @@ CSC612M G03
     * Input Initialization
     Arrays B,C, and D were initialized using trigonometric functions (sin, cos, tan) as shown below:
     
-    ![Alt text](screenshots/initialization.png)
+       ![Alt text](screenshots/initialization.png)
 * Process: A[i] = B[i] + C [i] * D[i]
 
 * Output: store the result in vector A. Display the first 5 and the last 5 elements of vector A for verification.
