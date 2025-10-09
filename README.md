@@ -14,9 +14,8 @@ CSC612M G03
 
 * Output: store the result in vector A. Display the first 5 and the last 5 elements of vector A for verification.
 
-## Results 
-### Program output with Execution Time and Correctness Check
-#### Debug Mode
+## Program output with Execution Time and Correctness Check
+### Debug Mode
 * 2^20
 
    ![Alt text](screenshots/20/20D.png)
@@ -31,7 +30,7 @@ CSC612M G03
 
    ![Alt text](screenshots/30/30D.png)
 
-#### Release Mode
+### Release Mode
 * 2^20
 
    ![Alt text](screenshots/20/20R.png)
@@ -39,12 +38,19 @@ CSC612M G03
   
 * 2^26
 
-   ![Alt text](screenshots/20/20R.png)
+   ![Alt text](screenshots/26/26R.png)
 
   
 * 2^30
 
-   ![Alt text](screenshots/20/20R.png)
+   ![Alt text](screenshots/30/30R.png)
 
-  
+## Boundary Check
+TODO: add here screenshots for XMM and YMM
+* add logic for boundary checks of both XMM and YMM
+
+## Summary Table of Execution Time and Comparative Result
+
+
+
   
