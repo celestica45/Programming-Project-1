@@ -9,6 +9,7 @@ CSC612M G03
 * Input: Scalar variable n (integer) contains the length of the vector; Vectors B, C and D are single-precision float.
     * Input Initialization
     Arrays B,C, and D were initialized using trigonometric functions (sin, cos, tan) as shown below:
+    
     ![Alt text](screenshots/initialization.png)
 * Process: A[i] = B[i] + C [i] * D[i]
 
