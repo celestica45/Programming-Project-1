@@ -23,4 +23,28 @@ CSC612M G03
 
   
 * 2^26
+
+   ![Alt text](screenshots/26/26D.png)
+
+  
 * 2^30
+
+   ![Alt text](screenshots/30/30D.png)
+
+#### Release Mode
+* 2^20
+
+   ![Alt text](screenshots/20/20R.png)
+
+  
+* 2^26
+
+   ![Alt text](screenshots/20/20R.png)
+
+  
+* 2^30
+
+   ![Alt text](screenshots/20/20R.png)
+
+  
+  
