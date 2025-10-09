@@ -14,4 +14,4 @@ Output: store the result in vector A. Display the first 5 and the last 5 element
 
 ### Initialization
 Arrays B,C, and D we initialized using trigonometric functions (sin, cos, tan) as shown below:
-![Alt text](images/initialization.png)
+![Alt text](screenshots/initialization.png)
