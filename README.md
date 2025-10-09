@@ -50,6 +50,9 @@ CSC612M G03
 ## Boundary Check
 TODO: add here screenshots for XMM and YMM
 * add logic for boundary checks of both XMM and YMM
+### XMM
+
+### YMM
 
 ## Summary Table of Execution Time and Comparative Result
 
