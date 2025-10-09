@@ -18,6 +18,6 @@ CSC612M G03
 ### Program output with Execution Time and Correctness Check
 #### Debug Mode
 * 2^20
-    ![Alt text](screenshots/20/20D_v2.png)
+    ![Alt text](screenshots/20/20D_v3.png)
 * 2^26
 * 2^30
