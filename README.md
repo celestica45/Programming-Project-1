@@ -101,3 +101,20 @@ All source code, project files, timing results, screenshots, and correctness che
    * Release
      
       ![Alt text](screenshots/simd_release.png)
+
+
+## Analysis of Results
+
+### Overall Performance Trend
+
+   From the results, we observe a clear performance hierarchy in the Debug build. In Debug mode, SIMD provided up to 4.4× speedup over the baseline C implementation, showing the strong advantage of vectorization when compiler optimizations are disabled. In contrast, in Release mode, all implementations converge to nearly the same performance, with differences shrinking to within ±5%. This confirms that the Release compiler automatically vectorized and optimized the C version, minimizing the manual SIMD advantage.
+
+### Low Arithmetic Intensity
+
+  The kernel performs only two floating-point operations per iteration (one multiplication and one addition) but transfers 16 bytes of memory, with 4 bytes per element. There are 3 loads (B[i], C[i], and D[i]), with 1 store (A[i]) with 4 bytes each, which leads to 16 bytes.
+
+   That yields a low arithmetic intensity of:
+
+   $`\text{Arithmetic Intensity} = \frac{2 \text{ flops}}{16 \text{ bytes}} = 0.125 \text{ flop/byte}`$
+
+   Since the arithmetic intensity is low, it means that performance is limited by memory bandwidth, not by ALU throughput. Once arrays exceed cache capacity (such as when 2 is raised to 26 or 30), data must be fetched from DRAM. Even if the CPU executes wider SIMD operations, the bottleneck shifts to how fast data can be supplied to registers. Thus, YMM cannot be 2× faster than XMM, since both are constrained by the same DRAM bandwidth. 
