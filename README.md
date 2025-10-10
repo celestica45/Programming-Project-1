@@ -58,3 +58,13 @@ TODO: add here screenshots for XMM and YMM boundary checks and show that it work
    ![Alt text](screenshots/summary_debug.png)
 
    ![Alt text](screenshots/geometric_mean_debug.png)
+
+   ![Alt text](screenshots/times_debug.png)
+
+### Release
+
+   ![Alt text](screenshots/summary_debug.png)
+
+   ![Alt text](screenshots/geometric_mean_debug.png)
+
+   ![Alt text](screenshots/times_release.png)
