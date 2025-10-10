@@ -85,8 +85,8 @@ All source code, project files, timing results, screenshots, and correctness che
    <img width="295" height="184" alt="image" src="https://github.com/user-attachments/assets/cb06dba0-cd63-41dc-89ef-61a4f9102116" />
 
    `rax` takes in `rcx`, which contains the total amount of elements in the array. `shr rcx, 3` divides the array into groups of 8. The boundary checking comes from `and rax, 7`, which gets the remainder of the array size divided by 8 (rax % 8) so that the program can compute for the remaining items later on.
-
-  <img width="305" height="258" alt="image" src="https://github.com/user-attachments/assets/0ef0037b-d133-45ce-967f-24f73798f9a3" />
+   
+   <img width="247" height="262" alt="image" src="https://github.com/user-attachments/assets/2dcd347c-0184-4fcd-b59a-36d461b86d08" />
 
   This part of the program calculates for the result one element at a time instead of doing it 8 at a time, looping for a maximum of 7 times. 
 
