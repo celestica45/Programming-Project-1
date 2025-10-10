@@ -156,6 +156,11 @@ Boundary handling was correctly implemented for cases where the number of elemen
 
 For large arrays like 2^30, the remainder cost is negligible (<0.01%), but the correctness check confirms that both SIMD implementations handle the remainder elements properly.
 
+Here is an example with the number of elements being 24077.
+
+<img width="342" height="987" alt="image" src="https://github.com/user-attachments/assets/68d1a248-4acd-47cc-9b7c-5973ca267f1c" />
+
+
 ### Key Insights
 
 The vector triad is memory-bound, meaning that beyond a certain point, performance is determined by memory throughput, not CPU compute power.
