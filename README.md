@@ -118,3 +118,18 @@ All source code, project files, timing results, screenshots, and correctness che
    $`\text{Arithmetic Intensity} = \frac{2 \text{ flops}}{16 \text{ bytes}} = 0.125 \text{ flop/byte}`$
 
    Since the arithmetic intensity is low, it means that performance is limited by memory bandwidth, not by ALU throughput. Once arrays exceed cache capacity (such as when 2 is raised to 26 or 30), data must be fetched from DRAM. Even if the CPU executes wider SIMD operations, the bottleneck shifts to how fast data can be supplied to registers. Thus, YMM cannot be 2× faster than XMM, since both are constrained by the same DRAM bandwidth. 
+
+### YMM and XMM 
+
+   Although YMM registers are 256 bits wide (processing 8 floats) versus XMM’s 128 bits (4 floats), the observed speedup is only around 1.08× in practice. Several factors explain this:
+
+   1. Memory Bandwidth Saturation. Doubling the vector width does not double the available bandwidth. The memory subsystem already operates near its limit, so YMM gains little in sustained throughput.
+   2. Same Memory Bottleneck. Once memory throughput is saturated, instruction-level parallelism or SIMD width no longer impacts total runtime.
+
+   With that being said, even though YMM executes more elements per instruction, the bottleneck isn’t the compute pipeline. Rather, it is the data movement, resulting in only a slight speedup.
+
+### Debug vs. Release Behavior
+
+   In Debug mode, there is a large difference between C and SIMD implementations. Debug builds disable optimizations such as loop unrolling, inlining, and auto-vectorization. This forces the C compiler to use simple, scalar operations, while SIMD assembly manually leverages hardware vector units, which does explain the 4× gain in Debug mode.
+
+   In Release mode, however, the compiler automatically vectorizes and optimizes the C code using SSE or AVX instructions internally. As a result, manually written SIMD code provides no major advantage, and all four implementations achieve similar performance. The small performance differences are dominated by memory latency variations and cache behavior, not by arithmetic throughput.
