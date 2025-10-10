@@ -48,9 +48,10 @@ CSC612M G03
    ![Alt text](screenshots/30/30R.png)
 
 ## Boundary Check
-TODO: add here screenshots for XMM and YMM boundary checks and show that it works indeed; add explantion for the logic 
 - XMM
-   - 
+   <img width="313" height="187" alt="image" src="https://github.com/user-attachments/assets/7ec0fb03-1b5e-4595-8d39-e561446c834a" />
+
+   `rax` takes in `rcx`, which contains the total amount of elements in the array. `shr rcx, 2` divides the array into groups of 4. The boundary checking comes from `and rax, 3`, which gets the remainder of the array size divided by 4 so that the program can compute for the remaining items later on.
 - YMM
    - 
 
