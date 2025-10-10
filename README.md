@@ -119,7 +119,7 @@ All source code, project files, timing results, screenshots, and correctness che
 
 ### Overall Performance Trend
 
-   From the results, we observe a clear performance hierarchy in the Debug build. In Debug mode, SIMD provided up to 4.4× speedup over the baseline C implementation, showing the strong advantage of vectorization when compiler optimizations are disabled. In contrast, in Release mode, all implementations converge to nearly the same performance, with differences shrinking to within ±5%. This confirms that the Release compiler automatically vectorized and optimized the C version, minimizing the manual SIMD advantage.
+   From the results, we observe a clear performance hierarchy in the Debug build. In Debug mode, SIMD(XMM and YMM) provided up to 4.4× speedup over the baseline C implementation, showing the strong advantage of vectorization when compiler optimizations are disabled. In contrast, in Release mode, all implementations converge to nearly the same performance, with differences shrinking to within ±5%. This confirms that the Release compiler automatically vectorized and optimized the C version, minimizing the manual SIMD advantage.
 
 ### Low Arithmetic Intensity
 
