@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <time.h>
+#include <math.h>
 
 //for assembly x86-64
 extern void vec_x86(size_t n, float* a_x86, float* b, float* c, float* d);
@@ -42,9 +43,9 @@ int main() {
 
 	//initialize array
 	for (i = 0; i < ARRAY_SIZE; i++) {
-		b[i] = 1.0f;         // all ones
-		c[i] = i % ARRAY_SIZE; //array c: 0 up to ARRAY_SIZE-1; array a: 1 up to ARRAY_SIZE
-		d[i] = 1.0f;             // all ones
+		b[i] = sin(i*0.001);         // all ones
+		c[i] = cos(i*0.002); //array c: 0 up to ARRAY_SIZE-1; array a: 1 up to ARRAY_SIZE
+		d[i] = tan(i*0.0005+1.0);             // all ones
 	}
 
 	// --------- start of the program in C ---------
@@ -64,13 +65,13 @@ int main() {
 	 // print first 5 elements
 	printf("First 5 elements of a:\n");
 	for (i = 0; i < 5; i++) {
-		printf("a[%d] = %0.1f\n", i, a[i]);
+		printf("a[%d] = %f\n", i, a[i]);
 	}
 
 	// print last 5 elements
 	printf("\nLast 5 elements of a:\n");
 	for (i = ARRAY_SIZE - 5; i < ARRAY_SIZE; i++) {
-		printf("a[%d] = %0.1f\n", i, a[i]);
+		printf("a[%d] = %f\n", i, a[i]);
 	}
 	// ---------end of the program in C---------
 	
@@ -118,13 +119,13 @@ int main() {
 	// print first 5 elements
 	printf("First 5 elements of a_x86:\n");
 	for (i = 0; i < 5; i++) {
-		printf("a_86[%d] = %0.1f\n", i, a_x86[i]);
+		printf("a_86[%d] = %f\n", i, a_x86[i]);
 	}
 
 	// print last 5 elements
 	printf("\nLast 5 elements of a_x86:\n");
 	for (i = ARRAY_SIZE - 5; i < ARRAY_SIZE; i++) {
-		printf("a_x86[%d] = %0.1f\n", i, a_x86[i]);
+		printf("a_x86[%d] = %f\n", i, a_x86[i]);
 	}
 	//--------- end of the program in Assembly(x86-64) ---------
 
@@ -173,13 +174,13 @@ int main() {
 	// print first 5 elements
 	printf("First 5 elements of a_SIMDX:\n");
 	for (i = 0; i < 5; i++) {
-		printf("a_SIMDX[%d] = %0.1f\n", i, a_SIMDX[i]);
+		printf("a_SIMDX[%d] = %f\n", i, a_SIMDX[i]);
 	}
 
 	// print last 5 elements
 	printf("\nLast 5 elements of a_SIMDX:\n");
 	for (i = ARRAY_SIZE - 5; i < ARRAY_SIZE; i++) {
-		printf("a_SIMDX[%d] = %0.1f\n", i, a_SIMDX[i]);
+		printf("a_SIMDX[%d] = %f\n", i, a_SIMDX[i]);
 	}
 	//--------- end of the program in Assembly(x86-64) ---------
 
@@ -229,13 +230,13 @@ int main() {
 	// print first 5 elements
 	printf("First 5 elements of a_SIMDY:\n");
 	for (i = 0; i < 5; i++) {
-		printf("a_SIMDY[%d] = %0.1f\n", i, a_SIMDY[i]);
+		printf("a_SIMDY[%d] = %f\n", i, a_SIMDY[i]);
 	}
 
 	// print last 5 elements
 	printf("\nLast 5 elements of a_SIMDY:\n");
 	for (i = ARRAY_SIZE - 5; i < ARRAY_SIZE; i++) {
-		printf("a_SIMDY[%d] = %0.1f\n", i, a_SIMDY[i]);
+		printf("a_SIMDY[%d] = %f\n", i, a_SIMDY[i]);
 	}
 	//--------- end of the program in SIMD YMM ---------
 
