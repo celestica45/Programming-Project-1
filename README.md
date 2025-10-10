@@ -157,4 +157,4 @@ The vector triad is memory-bound, meaning that beyond a certain point, performan
 
 SIMD improves efficiency by processing multiple elements per instruction, but its advantage caps out when data movement is dominating.
 
-For workloads with higher arithmetic intensity (e.g., matrix matrix multiplication or Fast Fourier Transform), YMM would most likely show a much larger speedup.
+For workloads with higher arithmetic intensity (e.g., matrix multiplication or Fast Fourier Transform), YMM would most likely show a much larger speedup.
