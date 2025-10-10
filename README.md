@@ -6,18 +6,18 @@ CSC612M G03
 ## Introduction
 This project explores different ways to efficiently calculate the operation <b>A[i] = B[i] + C[i] × D[i]</b> for large arrays of floating-point numbers. Four kernels are implemented:
 
-- **Standard C code**
-- **x86-64 assembly (non-SIMD)**
-- **SIMD AVX2 assembly using XMM registers**
-- **SIMD AVX2 assembly using YMM registers**
+* **Standard C code**
+* **x86-64 assembly (non-SIMD)**
+* **SIMD AVX2 assembly using XMM registers**
+* **SIMD AVX2 assembly using YMM registers**
 
 All kernels were benchmarked in both **DEBUG** and **RELEASE** build modes to compare performance.
 
 For each method, we:
-- Initialize vectors with known values
-- Measure execution time over large input sizes and multiple runs
-- Check that results match the C reference output
-- Demonstrate how each version deals with vector sizes that aren't a perfect fit for SIMD instructions
+* Initialize vectors with known values
+* Measure execution time over large input sizes and multiple runs
+* Check that results match the C reference output
+* Demonstrate how each version deals with vector sizes that aren't a perfect fit for SIMD instructions
 
 All source code, project files, timing results, screenshots, and correctness checks are included in this repository. From these results, we compare performance and discuss which implementation works best and why.
 
@@ -169,6 +169,35 @@ SIMD improves efficiency by processing multiple elements per instruction, but it
 
 For workloads with higher arithmetic intensity (e.g., matrix multiplication or Fast Fourier Transform), YMM would most likely show a much larger speedup.
 
+## Discussion & Conclusion
+
+### Team Insights and Challenges
+
+During this project, our group faced several key challenges:
+* **Implementing multiple kernels:** Ensuring that every version (C, x86-64 assembly, SIMD XMM, SIMD YMM) produced correct and consistent results across large input sizes. Handling boundary elements not aligned with the SIMD register width was especially tricky.
+* **Debugging assembly code:** Proper memory management and interfacing C with assembly were sources of bugs, and required careful debugging.
+* **Accurate measurement:** Measuring only the kernel runtime (not setup or I/O) was essential especially for clear comparison between Debug and Release builds.
+* **Accessing of 5th element in shadow space:** Troubleshooting issues with accessing parameters, specifically the 5th element in the shadow space when calling functions from assembly, which required extra care to align with calling conventions.
+* **Memory limitations with large vector sizes:** Running tests with the 2^30 vector size was difficult or impossible on some machines due to hardware memory limits. We had to accommodate this either by reducing the test size or using systems with higher memory capacity.
+
+### AHA Moments
+
+* Handling the SIMD "remainder" cases (when vector size isn’t a perfect multiple of register width) was a crucial technical realization that improved both correctness and efficiency.
+
+* Realizing the kernel is **memory-bound**: Our timing and analysis confirmed that for large arrays, RAM speed, not computation throughput, is the main bottleneck which makes SIMD helps up to a point.
+
+* **Will SIMD YMM be faster than optimized C?**  
+  Our results show that **SIMD YMM is actually faster than the C implementation** for large array sizes in both Debug and Release builds. For example, in Release mode, SIMD YMM reached a relative speed of **1.041x** compared to C, while in Debug mode, it was **4.382x** faster. This showed that using wider YMM registers makes the program finish faster, even when memory speed is the main thing slowing it down.
+
+* Our boundary check/cleanup method for leftover elements after SIMD is just one standard approach as other solutions can work as well, depending on hardware and coding preferences.
+
+### Lessons Learned
+
+* **SIMD and register width matter:** Wider registers (YMM) significantly improve performance for big data sets.
+* **Test in both Debug and Release:** Performance in Release builds is much closer to what modern compilers and hardware can really achieve.
+* **Early correctness checks save time:** Always use a C version as the reference for result validation.
+
+---
 
 ## References
 
