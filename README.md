@@ -106,9 +106,11 @@ All source code, project files, timing results, screenshots, and correctness che
 
 ### SIMD Speed-up(XMM vs YMM)
    * Debug
+     
      In Debug Mode, SIMD YMM program is 1.084 times faster than SIMD XMM.
       ![Alt text](screenshots/simd_debug.png)
    * Release
+     
      In Release Mode, SIMD YMM program is 1.051 times faster than SIMD XMM.
       ![Alt text](screenshots/simd_release.png)
 
