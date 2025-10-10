@@ -4,6 +4,22 @@ Members: Guillermo, Ty, Ughoc
 CSC612M G03
 
 ## Introduction
+This project explores different ways to efficiently calculate the operation <b>A[i] = B[i] + C[i] × D[i]</b> for large arrays of floating-point numbers. Four kernels are implemented:
+
+- **Standard C code**
+- **x86-64 assembly (non-SIMD)**
+- **SIMD AVX2 assembly using XMM registers**
+- **SIMD AVX2 assembly using YMM registers**
+
+All kernels were benchmarked in both **DEBUG** and **RELEASE** build modes to compare performance.
+
+For each method, we:
+- Initialize vectors with known values
+- Measure execution time over large input sizes and multiple runs
+- Check that results match the C reference output
+- Demonstrate how each version deals with vector sizes that aren't a perfect fit for SIMD instructions
+
+All source code, project files, timing results, screenshots, and correctness checks are included in this repository. From these results, we compare performance and discuss which implementation works best and why.
 
 ## Program Overview
 * Write the kernel in (1) C program; (2) an x86-64 assembly language; (3) x86-64 SIMD AVX2 assembly language using XMM register; (4) x86-64 SIMD AVX2 assembly language using YMM register. The kernel is to perform vector triad for vectors B C, D and place the result in vector A. For each kernel version, time the process for vector size n = {2^(20), 2^(26), and 2^(30)}
