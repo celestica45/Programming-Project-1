@@ -57,14 +57,12 @@ TODO: add here screenshots for XMM and YMM boundary checks and show that it work
 
    ![Alt text](screenshots/summary_debug.png)
 
-   ![Alt text](screenshots/geometric_mean_debug.png)
-
-   ![Alt text](screenshots/times_debug.png)
-
 ### Release
 
-   ![Alt text](screenshots/summary_debug.png)
+   ![Alt text](screenshots/summary_releaase.png)
 
-   ![Alt text](screenshots/geometric_mean_debug.png)
-
-   ![Alt text](screenshots/times_release.png)
+### SIMD Speed-up(XMM vs YMM)
+   * Debug
+      ![Alt text](screenshots/simd_debug.png)
+   * Release
+      ![Alt text](screenshots/simd_release.png)
