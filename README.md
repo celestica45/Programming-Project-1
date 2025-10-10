@@ -97,16 +97,16 @@ All source code, project files, timing results, screenshots, and correctness che
 
 ## Summary Table of Execution Time and Comparative Result
 ### Debug
-
+   In Debug Mode, the execution time of the program increases as the array size processed by the program increases. The order of the fastest to slowest program is consistent with SIMD YMM being the fastest followed by SIMD XMM, then             Assembly x86-64, and C as the slowest.
    ![Alt text](screenshots/summary_debug.png)
-
+   
 ### Release
-
+   Just like in Debug Mode, the execution time of the program in Release Mode increases as the array size processed by the program increases. SIMD YMM is still the fastest program. The order of the fastest to slowest program is SIMD YMM,       C, SIMD XMM, and Assembly x86-64 as the slowest.
    ![Alt text](screenshots/summary_release.png)
 
 ### SIMD Speed-up(XMM vs YMM)
    * Debug
-     
+     SIMD YMM program is 
       ![Alt text](screenshots/simd_debug.png)
    * Release
      
