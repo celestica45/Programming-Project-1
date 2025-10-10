@@ -51,7 +51,12 @@ CSC612M G03
 - XMM
    <img width="313" height="187" alt="image" src="https://github.com/user-attachments/assets/7ec0fb03-1b5e-4595-8d39-e561446c834a" />
 
-   `rax` takes in `rcx`, which contains the total amount of elements in the array. `shr rcx, 2` divides the array into groups of 4. The boundary checking comes from `and rax, 3`, which gets the remainder of the array size divided by 4 so that the program can compute for the remaining items later on.
+   `rax` takes in `rcx`, which contains the total amount of elements in the array. `shr rcx, 2` divides the array into groups of 4. The boundary checking comes from `and rax, 3`, which gets the remainder of the array size divided by 4 (rax % 4) so that the program can compute for the remaining items later on.
+
+  <img width="279" height="250" alt="image" src="https://github.com/user-attachments/assets/3455733e-9cd9-45b2-8d72-1e74e4751ab4" />
+
+   This part of the program calculates for the result one element at a time instead of doing it 4 at a time, looping for a maximum of 3 times. 
+   
 - YMM
    - 
 
