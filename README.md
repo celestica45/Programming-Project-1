@@ -73,6 +73,9 @@ All source code, project files, timing results, screenshots, and correctness che
   <img width="279" height="250" alt="image" src="https://github.com/user-attachments/assets/3455733e-9cd9-45b2-8d72-1e74e4751ab4" />
 
    This part of the program calculates for the result one element at a time instead of doing it 4 at a time, looping for a maximum of 3 times. 
+
+   Sample:
+   * Array Size = 
 ### YMM
    A similar process can be done for YMM.
       
@@ -84,6 +87,8 @@ All source code, project files, timing results, screenshots, and correctness che
 
   This part of the program calculates for the result one element at a time instead of doing it 8 at a time, looping for a maximum of 7 times. 
 
+   Sample:
+   * Array Size = 
 
 ## Summary Table of Execution Time and Comparative Result
 ### Debug
