@@ -133,3 +133,28 @@ All source code, project files, timing results, screenshots, and correctness che
    In Debug mode, there is a large difference between C and SIMD implementations. Debug builds disable optimizations such as loop unrolling, inlining, and auto-vectorization. This forces the C compiler to use simple, scalar operations, while SIMD assembly manually leverages hardware vector units, which does explain the 4× gain in Debug mode.
 
    In Release mode, however, the compiler automatically vectorizes and optimizes the C code using SSE or AVX instructions internally. As a result, manually written SIMD code provides no major advantage, and all four implementations achieve similar performance. The small performance differences are dominated by memory latency variations and cache behavior, not by arithmetic throughput.
+
+
+### Vector Size
+
+When comparing different array sizes, the smallest size of 2^20 fits in the cache. SIMD achieves its best relative speed because the working set resides mostly in L2/L3 cache, allowing the CPU to exploit full vector throughput. 
+
+At 2^26 and 2^30, execution times scale almost linearly with array size, indicating that performance is dominated by memory access, not computation.
+
+Looking at these results, it suggests that beyond a certain point, increasing SIMD width offers diminishing returns due to saturated memory bandwidth.
+
+This behavior closely matches the Roofline performance model, where the compute-bound region (small data) transitions to a memory-bound region (large data).
+
+### Boundary Handling
+
+Boundary handling was correctly implemented for cases where the number of elements isn’t divisible by the SIMD width (4 for XMM, 8 for YMM).
+
+For large arrays like 2^30, the remainder cost is negligible (<0.01%), but the correctness check confirms that both SIMD implementations handle the remainder elements properly.
+
+### Key Insights
+
+The vector triad is memory-bound, meaning that beyond a certain point, performance is determined by memory throughput, not CPU compute power.
+
+SIMD improves efficiency by processing multiple elements per instruction, but its advantage caps out when data movement is dominating.
+
+For workloads with higher arithmetic intensity (e.g., matrix matrix multiplication or Fast Fourier Transform), YMM would most likely show a much larger speedup.
