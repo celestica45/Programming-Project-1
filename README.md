@@ -53,7 +53,12 @@ TODO: add here screenshots for XMM and YMM boundary checks and show that it work
 - YMM
 
 ## Summary Table of Execution Time and Comparative Result
+### Debug
 
+| **Size**   |   **Kernel**   | **Error Checking** | **Ave Execution Time (ms)**  |
+|:----------:|:--------------:|:------------------:|:----------------------------:|
+| **2^20**   |       C        |        PASS        |           2.846327           |
+|            |     x86-64     |        PASS        |           2.846327           |
+|            |    SIMD XMM    |        PASS        |           2.846327           |
+|            |    SIMD YMM    |        PASS        |           2.846327           |
 
-
-  
