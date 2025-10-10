@@ -121,6 +121,9 @@ All source code, project files, timing results, screenshots, and correctness che
 
    From the results, we observe a clear performance hierarchy in the Debug build. In Debug mode, SIMD(XMM and YMM) provided up to 4.4× speedup over the baseline C implementation, showing the strong advantage of vectorization when compiler optimizations are disabled. In contrast, in Release mode, all implementations converge to nearly the same performance, with differences shrinking to within ±5%. This confirms that the Release compiler automatically vectorized and optimized the C version, minimizing the manual SIMD advantage.
 
+
+The x86-64 assembly implementation is faster than the plain C version because it removes overhead added by the compiler, which includes redundant instructions, bounds checks, and function call abstractions, especially in Debug mode. This allows for direct control over registers and memory addressing. Additionally, these minor performance differences may also result from how files are loaded or handled dynamically at runtime. For example, external file access or dynamic page loading can introduce slight variations in execution time.
+
 ### Low Arithmetic Intensity
 
   The kernel performs only two floating-point operations per iteration (one multiplication and one addition) but transfers 16 bytes of memory, with 4 bytes per element. There are 3 loads (B[i], C[i], and D[i]), with 1 store (A[i]) with 4 bytes each, which leads to 16 bytes.
