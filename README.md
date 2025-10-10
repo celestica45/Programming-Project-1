@@ -163,3 +163,17 @@ The vector triad is memory-bound, meaning that beyond a certain point, performan
 SIMD improves efficiency by processing multiple elements per instruction, but its advantage caps out when data movement is dominating.
 
 For workloads with higher arithmetic intensity (e.g., matrix multiplication or Fast Fourier Transform), YMM would most likely show a much larger speedup.
+
+
+## References
+
+Improving performance with SIMD intrinsics in three use cases - Stack Overflow. (2020, July 8). https://stackoverflow.blog/2020/07/08/improving-performance-with-simd-intrinsics-in-three-use-cases
+
+Jelínek, J. (2023, December 8). Vectorization optimization in GCC | Red Hat Developer. Red Hat Developer. https://developers.redhat.com/articles/2023/12/08/vectorization-optimization-gcc
+
+Nersc. (n.d.). Roofline Performance Model - NERSC documentation. https://docs.nersc.gov/tools/performance/roofline/
+
+Roofline Model - an overview | ScienceDirect Topics. (n.d.). https://www.sciencedirect.com/topics/computer-science/roofline-model
+
+What is a Frontier Model? (2025, April 6). Iguazio. https://www.iguazio.com/glossary/arithmetic-intensity/
+
