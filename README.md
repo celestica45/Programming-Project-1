@@ -75,7 +75,10 @@ All source code, project files, timing results, screenshots, and correctness che
    This part of the program calculates for the result one element at a time instead of doing it 4 at a time, looping for a maximum of 3 times. 
 
    Sample:
-   * Array Size = 
+   * Array Size = 4099 (4099 / 4 = 1024 remainder 3)
+
+   <img width="351" height="982" alt="boundary 1" src="https://github.com/user-attachments/assets/6c9b2ead-57f7-409d-9a36-c415e239fabf" />
+
 ### YMM
    A similar process can be done for YMM.
       
