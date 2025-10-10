@@ -59,10 +59,12 @@ TODO: add here screenshots for XMM and YMM boundary checks and show that it work
 
 ### Release
 
-   ![Alt text](screenshots/summary_releaase.png)
+   ![Alt text](screenshots/summary_release.png)
 
 ### SIMD Speed-up(XMM vs YMM)
    * Debug
+     
       ![Alt text](screenshots/simd_debug.png)
    * Release
+     
       ![Alt text](screenshots/simd_release.png)
