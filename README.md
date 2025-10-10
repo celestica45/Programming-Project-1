@@ -88,7 +88,8 @@ All source code, project files, timing results, screenshots, and correctness che
   This part of the program calculates for the result one element at a time instead of doing it 8 at a time, looping for a maximum of 7 times. 
 
    Sample:
-   * Array Size = 24007
+   * Array Size = 24007 (24007 / 8 = 3000 remainder 7)
+     
      <img width="342" height="987" alt="image" src="https://github.com/user-attachments/assets/68d1a248-4acd-47cc-9b7c-5973ca267f1c" />
 
 ## Summary Table of Execution Time and Comparative Result
