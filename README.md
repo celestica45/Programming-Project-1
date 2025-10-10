@@ -191,7 +191,7 @@ During this project, our group faced several key challenges:
 * **Will SIMD YMM be faster than optimized C?**  
   Our results show that **SIMD YMM is actually faster than the C implementation** for large array sizes in both Debug and Release builds. For example, in Release mode, SIMD YMM reached a relative speed of **1.041x** compared to C, while in Debug mode, it was **4.382x** faster. This showed that using wider YMM registers makes the program finish faster, even when memory speed is the main thing slowing it down.
 
-* Our boundary check/cleanup method for leftover elements after SIMD is just one standard approach as other solutions can work as well, depending on hardware and coding preferences.
+* Unique Methodology: Our boundary check/cleanup method for leftover elements after SIMD is just one standard approach as other solutions can work as well, depending on hardware and coding preferences.
 
 ### Lessons Learned
 
