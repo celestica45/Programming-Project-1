@@ -38,13 +38,13 @@ done_L1:
     mov rcx, rax
 
 remainder:
-    vmovss xmm1, [r8]
-    vmovss xmm2, [r9]         
-    vmovss xmm3, [r10]
+    vmaskmovps ymm1, ymm7, [r8]
+    vmaskmovps ymm2, ymm7, [r9]
+    vmaskmovps ymm3, ymm7, [r10]
 
-    vmulss xmm4, xmm2, xmm3
-    vaddss xmm0, xmm4, xmm1
-    vmovss [rdx], xmm0 
+    vmulps  ymm4, ymm2, ymm3
+    vaddps  ymm0, ymm4, ymm1
+    vmaskmovps [rdx], ymm7, ymm0
 
     add r8, 4
     add r9, 4 
