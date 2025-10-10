@@ -88,7 +88,8 @@ All source code, project files, timing results, screenshots, and correctness che
   This part of the program calculates for the result one element at a time instead of doing it 8 at a time, looping for a maximum of 7 times. 
 
    Sample:
-   * Array Size = 
+   * Array Size = 24007
+     <img width="342" height="987" alt="image" src="https://github.com/user-attachments/assets/68d1a248-4acd-47cc-9b7c-5973ca267f1c" />
 
 ## Summary Table of Execution Time and Comparative Result
 ### Debug
@@ -155,11 +156,6 @@ This behavior closely matches the Roofline performance model, where the compute-
 Boundary handling was correctly implemented for cases where the number of elements isn’t divisible by the SIMD width (4 for XMM, 8 for YMM).
 
 For large arrays like 2^30, the remainder cost is negligible (<0.01%), but the correctness check confirms that both SIMD implementations handle the remainder elements properly.
-
-Here is an example with the number of elements being 24077.
-
-<img width="342" height="987" alt="image" src="https://github.com/user-attachments/assets/68d1a248-4acd-47cc-9b7c-5973ca267f1c" />
-
 
 ### Key Insights
 
