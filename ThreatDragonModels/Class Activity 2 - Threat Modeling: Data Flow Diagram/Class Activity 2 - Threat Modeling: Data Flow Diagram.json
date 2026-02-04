@@ -38,6 +38,7 @@
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 1,
             "ports": {
               "groups": {
                 "top": {
@@ -121,7 +122,6 @@
               ]
             },
             "id": "df2d7605-0035-430a-a44d-58fa60e50194",
-            "zIndex": 1,
             "data": {
               "type": "tm.Process",
               "name": "Authorization Provider",
